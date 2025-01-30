@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Início</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<!-- Importando os fragments -->
+<div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/menu :: menu"></div>
+
+<!-- Conteúdo da Página -->
+<main>
+    <h2>Lista de Alunos</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Matrícula</th>
+            <th>Data de Ingresso</th>
+            <th>Data de Nascimento</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Observações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="aluno : ${alunos}">
+            <td th:text="${aluno.id}"></td>
+            <td th:text="${aluno.nome}"></td>
+            <td th:text="${aluno.matricula}"></td>
+            <td th:text="${#temporals.format(aluno.dataIngresso, 'dd/MM/yyyy')}"></td>
+            <td th:text="${#temporals.format(aluno.dataNascimento, 'dd/MM/yyyy')}"></td>
+            <td th:text="${aluno.email}"></td>
+            <td th:text="${aluno.telefone}"></td>
+            <td th:text="${aluno.observacoes}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

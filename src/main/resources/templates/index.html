@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Início</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<!-- Importando os fragments -->
+<div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/menu :: menu"></div>
+
+<!-- Conteúdo dinâmico -->
+<main>
+    <h2>Ol&aacute;, nessa aplica&ccedil;&atilde;o voc&ecirc; poder&aacute; cadastrar alunos.</h2>
+</main>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
