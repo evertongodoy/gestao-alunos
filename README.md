@@ -43,7 +43,7 @@ Aplicação para gerenciar cadastro de alunos [CRUD]
 ```mermaid
 ---
 config:
-  theme: base
+  theme: neutral
 ---
 sequenceDiagram
     participant browser
