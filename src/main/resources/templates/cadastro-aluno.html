@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Início</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script th:src="@{/js/modal.js}"></script>
 </head>
 <body>
 
@@ -16,17 +17,19 @@
     <h2>Cadastro de Aluno</h2>
     <form th:action="@{/gestao-alunos/salvar}" th:object="${aluno}" method="post">
 
+        <!-- Campo escondido para o ID do aluno -->
+        <input type="hidden" th:field="*{id}">
+
         <label for="nome">Nome:</label>
         <input type="text" id="nome" th:field="*{nome}" required>
 
-        <label for="matricula">Matrícula:</label>
-        <input type="number" id="matricula" th:field="*{matricula}" required>
-
         <label for="dataIngresso">Data de Ingresso:</label>
-        <input type="date" id="dataIngresso" th:field="*{dataIngresso}" required>
+        <input type="date" id="dataIngresso" th:field="*{dataIngresso}"
+               th:value="${aluno.dataIngresso != null ? #temporals.format(aluno.dataIngresso, 'yyyy-MM-dd') : ''}" required>
 
         <label for="dataNascimento">Data de Nascimento:</label>
-        <input type="date" id="dataNascimento" th:field="*{dataNascimento}" required>
+        <input type="date" id="dataNascimento" th:field="*{dataNascimento}"
+               th:value="${aluno.dataNascimento != null ? #temporals.format(aluno.dataNascimento, 'yyyy-MM-dd') : ''}" required>
 
         <label for="email">E-mail:</label>
         <input type="email" id="email" th:field="*{email}" required>
@@ -34,14 +37,41 @@
         <label for="telefone">Telefone:</label>
         <input type="text" id="telefone" th:field="*{telefone}" required>
 
-        <label for="observacoes">Observações:</label>
-        <textarea id="observacoes" th:field="*{observacoes}"></textarea>
-
         <button type="submit">Salvar</button>
+
+        <!-- Botão de Deletar - Só aparece se houver um ID -->
+        <button style="background: #cc0032; color: white; padding: 10px; border: none;
+        border-radius: 5px; cursor: pointer;"
+                type="button"
+                th:if="*{id} != null"
+                th:data-id="*{id}"
+                onclick="abrirModal(this)">
+            Deletar
+        </button>
+
     </form>
+
+    <!-- 📝 Formulário escondido para DELETE -->
+    <form id="delete-form" th:action="@{/gestao-alunos/deletar}" method="post">
+        <input type="hidden" name="id" id="delete-id">
+    </form>
+
 </main>
 
 <div th:replace="fragments/footer :: footer"></div>
+
+<!-- Modal de Confirmação -->
+<div id="modal-confirmacao" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2>Confirmação</h2>
+        <p>Tem certeza que deseja deletar este aluno?</p>
+        <div class="modal-buttons">
+            <button class="cancelar" onclick="fecharModal()">Cancelar</button>
+            <button class="confirmar" id="confirmar-deletar">Deletar</button>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

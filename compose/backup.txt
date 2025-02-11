@@ -1,0 +1,28 @@
+antiga trigger
+
+-- Altera o delimitador para evitar conflitos com o ponto e vírgula dentro da trigger
+DELIMITER $$
+
+--Cria a trigger `before_insert_alunos`
+CREATE TRIGGER `before_insert_aluno`
+BEFORE INSERT ON `aluno`
+FOR EACH ROW
+BEGIN
+    DECLARE last_matricula BIGINT;
+    DECLARE year_prefix CHAR(2);
+
+    -- Obtém os dois últimos dígitos do ano atual
+    SET year_prefix = RIGHT(YEAR(CURDATE()), 2);
+
+    -- Obtém a última matrícula inserida que começa com o ano atual
+    SELECT COALESCE(MAX(matricula), CONCAT(year_prefix, '000000'))
+    INTO last_matricula
+    FROM aluno
+    WHERE matricula LIKE CONCAT(year_prefix, '%');
+
+    -- Incrementa o número da matrícula
+    SET NEW.matricula = last_matricula + 1;
+END$$
+
+-- Restaura o delimitador padrão
+DELIMITER ;

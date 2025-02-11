@@ -25,11 +25,10 @@
             <th>Data de Nascimento</th>
             <th>Email</th>
             <th>Telefone</th>
-            <th>Observações</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="aluno : ${alunos}">
+        <tr th:each="aluno : ${alunos}" th:onclick="|window.location.href='@{/gestao-alunos/cadastro(id=${aluno.id})}'|" style="cursor: pointer;">
             <td th:text="${aluno.id}"></td>
             <td th:text="${aluno.nome}"></td>
             <td th:text="${aluno.matricula}"></td>
@@ -37,10 +36,25 @@
             <td th:text="${#temporals.format(aluno.dataNascimento, 'dd/MM/yyyy')}"></td>
             <td th:text="${aluno.email}"></td>
             <td th:text="${aluno.telefone}"></td>
-            <td th:text="${aluno.observacoes}"></td>
         </tr>
         </tbody>
     </table>
+
+    <!-- Paginação -->
+    <div class="pagination">
+        <!-- Botão "Anterior" -->
+        <a th:if="${alunos.hasPrevious()}" th:href="@{/gestao-alunos/listar(page=${alunos.number - 1}, size=${alunos.size})}">Anterior</a>
+
+        <!-- Números das Páginas -->
+        <span th:each="i : ${#numbers.sequence(0, alunos.totalPages - 1)}">
+            <a th:if="${i != alunos.number}" th:href="@{/gestao-alunos/listar(page=${i}, size=${alunos.size})}" th:text="${i + 1}"></a>
+            <strong th:if="${i == alunos.number}" th:text="${i + 1}"></strong>
+        </span>
+
+        <!-- Botão "Próximo" -->
+        <a th:if="${alunos.hasNext()}" th:href="@{/gestao-alunos/listar(page=${alunos.number + 1}, size=${alunos.size})}">Próximo</a>
+    </div>
+
 </main>
 
 <div th:replace="fragments/footer :: footer"></div>

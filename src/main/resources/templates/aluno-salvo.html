@@ -11,9 +11,13 @@
 <div th:replace="fragments/header :: header"></div>
 <div th:replace="fragments/menu :: menu"></div>
 
-<!-- Conteúdo dinâmico -->
-<main>
-    <h2>Ol&aacute;, nessa aplica&ccedil;&atilde;o voc&ecirc; poder&aacute; gerenciar dados do alunos.</h2>
+<!-- Conteúdo da Página -->
+<main class="aluno-salvo-container">
+    <h2 class="titulo-aluno-salvo">Aluno Registrado</h2>
+
+    <div class="mensagem-sucesso" th:if="${nomeAluno}">
+        <p>O aluno <strong th:text="${nomeAluno}"></strong> foi salvo com sucesso!</p>
+    </div>
 </main>
 
 <div th:replace="fragments/footer :: footer"></div>

@@ -1,5 +1,7 @@
 package br.senac.sp.gestaoalunos.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class AlunoModel {
@@ -7,15 +9,16 @@ public class AlunoModel {
     private String id;
     private String nome;
     private Long matricula;
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // Formato que o HTML <input type="date"> espera
     private LocalDate dataIngresso;
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // Formato que o HTML <input type="date"> espera
     private LocalDate dataNascimento;
     private String email;
     private String telefone;
-    private String observacoes;
 
     public AlunoModel() {}
 
-    public AlunoModel(String id, String nome, Long matricula, LocalDate dataIngresso, LocalDate dataNascimento, String email, String telefone, String observacoes) {
+    public AlunoModel(String id, String nome, Long matricula, LocalDate dataIngresso, LocalDate dataNascimento, String email, String telefone) {
         this.id = id;
         this.nome = nome;
         this.matricula = matricula;
@@ -23,7 +26,6 @@ public class AlunoModel {
         this.dataNascimento = dataNascimento;
         this.email = email;
         this.telefone = telefone;
-        this.observacoes = observacoes;
     }
 
     public String getId() {
@@ -86,15 +88,6 @@ public class AlunoModel {
 
     public AlunoModel setTelefone(String telefone) {
         this.telefone = telefone;
-        return this;
-    }
-
-    public String getObservacoes() {
-        return observacoes;
-    }
-
-    public AlunoModel setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
         return this;
     }
 

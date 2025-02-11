@@ -1,21 +1,39 @@
 package br.senac.sp.gestaoalunos.entities;
 
-import java.time.LocalDate;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
+@Entity
+@Table(name = "aluno")
 public class AlunoEntity {
 
+    @Id
+    @Column(length = 36) // Definir ID com 36 caracteres
     private String id;
+    @Column(length = 50, nullable = false) // Nome com 50 caracteres
     private String nome;
+    @Column(nullable = false, unique = true) // Matrícula única e obrigatória
     private Long matricula;
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // Formato que o HTML <input type="date"> espera
+    @Column(name = "data_ingresso", nullable = false) // Data de ingresso obrigatória
     private LocalDate dataIngresso;
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // Formato que o HTML <input type="date"> espera
+    @Column(name = "data_nascimento", nullable = false) // Data de nascimento obrigatória
     private LocalDate dataNascimento;
+    @Column(length = 100, nullable = false) // Email com 100 caracteres e obrigatório
     private String email;
+    @Column(length = 100, nullable = false) // Telefone com 100 caracteres
     private String telefone;
-    private String observacoes;
 
-    public AlunoEntity() {}
+    public AlunoEntity() {
+    }
 
-    public AlunoEntity(String id, String nome, Long matricula, LocalDate dataIngresso, LocalDate dataNascimento, String email, String telefone, String observacoes) {
+    public AlunoEntity(String id, String nome, Long matricula, LocalDate dataIngresso, LocalDate dataNascimento, String email, String telefone) {
         this.id = id;
         this.nome = nome;
         this.matricula = matricula;
@@ -23,7 +41,13 @@ public class AlunoEntity {
         this.dataNascimento = dataNascimento;
         this.email = email;
         this.telefone = telefone;
-        this.observacoes = observacoes;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (this.id == null) {
+            this.id = UUID.randomUUID().toString();
+        }
     }
 
     public String getId() {
@@ -86,15 +110,6 @@ public class AlunoEntity {
 
     public AlunoEntity setTelefone(String telefone) {
         this.telefone = telefone;
-        return this;
-    }
-
-    public String getObservacoes() {
-        return observacoes;
-    }
-
-    public AlunoEntity setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
         return this;
     }
 

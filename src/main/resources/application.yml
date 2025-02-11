@@ -3,6 +3,28 @@ server:
 
 spring:
   application:
-    name: gestao-alunos
+    name: gestao-alunos # Nome da aplicação
+  jackson:
+    property-naming-strategy: SNAKE_CASE # Converte os nomes das propriedades para snake_case
   thymeleaf:
-    cache: false
+    cache: false # Desabilita o cache do Thymeleaf
+  datasource:
+    url: jdbc:mysql://localhost:6306/alunodb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&socketTimeout=30000&connectTimeout=30000
+    username: aluno # Usuário do MySQL
+    password: aluno # Senha do MySQL
+    driver-class-name: com.mysql.cj.jdbc.Driver # Driver do MySQL
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL8Dialect # Dialeto do MySQL
+      ddl-auto: update # create para criar todas as tabelas,
+                       # update para atualizar as tabelas, sem apagar existentes
+                       # none para não criar as tabelas
+                       # validate veridica se as tabelas estão corretas, causa erro se a tabela não existir
+    show-sql: true # Mostra o SQL gerado
+    properties:
+      hibernate:
+        format_sql: true # Formata o SQL
+  flyway:
+    enabled: false # Habilita o Flyway
+    baseline-on-migrate: true # Cria a tabela flyway_schema_history se não existir
+    locations: classpath:db/migration # Onde estão os scripts SQL
