@@ -35,8 +35,10 @@ Aplicação para gerenciar cadastro de alunos [CRUD]
 
 ## Comandos auxiliares
  - Listar volumes
-   - `docker volume ls`, para listar os volumes
-   - `docker volume inspect mysql_data`, Isso mostrará a localização do volume no sistema. Se o caminho estiver errado ou vazio, significa que os dados não estão sendo salvos.
+   - `docker volume ls` → para listar os volumes
+   - `docker volume inspect mysql_data` → Isso mostrará a localização do volume no sistema. Se o caminho estiver errado ou vazio, significa que os dados não estão sendo salvos.
+   - `git pull origin main --rebase` → Obtém as mudanças remotas e as aplica antes dos seus commits locais.
+   - `git push origin main` → Envia os commits locais para o repositório remoto.
   
 
 ## Sequence Diagram
