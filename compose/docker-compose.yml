@@ -1,22 +1,19 @@
 services:
-  mysql:
-    image: mysql:8.3 # Imagem do MySQL
-    container_name: mysql-container # Nome do container no Docker
-    #    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root # Senha do root do MySQL
-      MYSQL_DATABASE: alunodb # Nome do banco de dados
-      MYSQL_USER: aluno # Usuário do MySQL
-      MYSQL_PASSWORD: aluno # Senha do MySQL
-    volumes:
-      - mysql_data:/var/lib/mysql  # Mantém os dados do MySQL mesmo após reiniciar o contêiner.
-      - ./sql-scripts:/docker-entrypoint-initdb.d # Apenas na primeira inicialização, executa os scripts SQL
+  mongodb:
+    image: mongo:8.0.4 # Imagem do MongoDB
+    container_name: mongo-container # Nome do container no Docker
+    restart: always # Reinicia o container automaticamente quando ele para
     ports:
-      - "6306:3306"
-#    command: --bind-address=0.0.0.0
-#    command: --default-authentication-plugin=mysql_native_password
+      - "27017:27017" # Mapeia a porta local 27017 para a porta do container
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: aluno # Usuário administrador do MongoDB
+      MONGO_INITDB_ROOT_PASSWORD: aluno # Senha do administrador
+      MONGO_INITDB_DATABASE: alunodb   # Nome do banco de dados inicial
+    volumes:
+      - mongodb_data:/data/db # Persistência dos dados do MongoDB
+      - ./mongo-scripts/init.js:/docker-entrypoint-initdb.d/init.js:ro # Script de inicialização do MongoDB
 
 volumes:
-  mysql_data:
-    name: mysql_data # Define um nome fixo para o volume
+  mongodb_data:
+    name: mongodb_data # Define um nome fixo para o volume
     driver: local # Armazena os dados localmente. O Docker criará o volume automaticamente
