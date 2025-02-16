@@ -6,7 +6,8 @@ Aplicação para gerenciar cadastro de alunos [CRUD]
 - Spring Boot
 - Spring Data JPA
 - Spring Web
-- MySQL
+- MySQL (mysql branch)
+- MongoDB (mongodb branch)
 - Docker
 
 ## Tecnologias desabilitadas
@@ -23,7 +24,7 @@ Aplicação para gerenciar cadastro de alunos [CRUD]
     - `docker-compose up -d`
   - `Stop`, executar o arquivo `docker-compose.yml` com o comando:
     - `docker-compose down`
-  - <b>Não executar</b> com o comando `docker-compose down -v`, pois irá remover o volume `mysql_data` e os dados serão perdidos
+  - <b>Não executar(apenas quando necessário)</b> com o comando `docker-compose down -v`, pois irá remover o volume `mysql_data` e os dados serão perdidos
 
   ### Orientações do banco de dados MySQL
   - [1] - Para manter os dados persistidos entre uma execução e outra do container, é necessário criar um <b>volume</b> para o container do MySQL.
