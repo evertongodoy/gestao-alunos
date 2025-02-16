@@ -92,7 +92,7 @@ sequenceDiagram
 ![Inicio da aplicação](docs/tela-inicial.png)
 
 ## Pagina cadastro
-### http://localhost:8080 (http://localhost:8080/gestao-alunos/cadastro![img.png)
+### http://localhost:8080 (http://localhost:8080/gestao-alunos/cadastro)
 ![Pagina de cadastro](docs/cadastro.png)
 
 ## Pagina listar
