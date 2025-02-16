@@ -86,3 +86,15 @@ sequenceDiagram
         end    
     end
 ```
+
+## Pagina inicial
+### http://localhost:8080 (http://localhost:8080/gestao-alunos/inicio)
+![Inicio da aplicação](docs/tela-inicial.png)
+
+## Pagina cadastro
+### http://localhost:8080 (http://localhost:8080/gestao-alunos/cadastro![img.png)
+![Pagina de cadastro](docs/cadastro.png)
+
+## Pagina listar
+### http://localhost:8080 (http://localhost:8080/gestao-alunos/listar)
+![Pagina listar alunos](docs/listar.png)
